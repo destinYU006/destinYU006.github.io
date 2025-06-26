@@ -438,7 +438,28 @@
                 
                 <div class="project-content">
                     <p><strong>项目背景：</strong>针对急性心衰急诊救治需求，开发可经皮穿刺植入的微型心室辅助装置，对标Impella CP的3.5L/min流量指标，实现微创介入与快速血流动力学支持。</p>
-                    
+                                        <!-- 视频展示区域 -->
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <video id="pvad-video" autoplay loop muted playsinline>
+                                <!-- 实际使用时请替换为您的视频URL -->
+                                <source src="ABIOMED Education-2.5_CP.mp4" type="video/mp4">
+                                您的浏览器不支持视频标签。
+                            </video>
+                            <div class="video-overlay">
+                                <div class="video-title">pVAD装置工作原理演示</div>
+                                <div class="video-description">经皮心室辅助装置在模拟循环系统中的工作状态</div>
+                            </div>
+                            <div class="video-controls">
+                                <div class="video-btn" id="play-btn">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <div class="video-btn" id="sound-btn">
+                                    <i class="fas fa-volume-mute"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <p><strong>核心工作：</strong></p>
                     <ul>
                         <li><strong>微型化叶轮与植入系统设计：</strong>轴向流式叶轮（直径≤5mm），CFD优化后体外流量4.0L/min，溶血指标MIH＜3；6F-8F薄壁鞘管（肝素涂层），镍钛记忆合金"猪尾"支撑结构，径向支撑力1.2-1.8N。</li>
@@ -583,6 +604,58 @@
     <script>
         // Simple scroll animation
         document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('section, .card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+  
+        // 页面加载时初始化视频控制
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('pvad-video');
+            const playBtn = document.getElementById('play-btn');
+            const soundBtn = document.getElementById('sound-btn');
+            
+            // 初始设置：视频自动播放、静音、循环
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            
+            // 播放/暂停按钮功能
+            playBtn.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+            
+            // 声音开关功能
+            soundBtn.addEventListener('click', function() {
+                video.muted = !video.muted;
+                soundBtn.innerHTML = video.muted ? 
+                    '<i class="fas fa-volume-mute"></i>' : 
+                    '<i class="fas fa-volume-up"></i>';
+            });
+            
+            // 视频结束自动重新播放
+            video.addEventListener('ended', function() {
+                video.currentTime = 0;
+                video.play();
+            });
+            
+            // 滚动动画效果
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
