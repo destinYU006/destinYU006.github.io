@@ -243,6 +243,117 @@
             margin-bottom: 8px;
         }
         
+        /* Video Container - 响应式优化 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 800px; /* 限制最大宽度 */
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+        
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 70%);
+            color: white;
+            padding: 20px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-container:hover .video-overlay {
+            opacity: 1;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .video-description {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .video-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+        
+        .video-btn:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        /* 移动端优化 - 视频控制 */
+        .mobile-video-controls {
+            display: none;
+            margin-top: 15px;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .mobile-video-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-video-btn:hover {
+            background-color: var(--dark);
+        }
+        
         /* Footer */
         footer {
             background-color: var(--primary);
@@ -285,8 +396,12 @@
             font-size: 0.9rem;
         }
         
-        /* Responsive Design */
+        /* Responsive Design - 移动端优化 */
         @media (max-width: 768px) {
+            header {
+                padding: 40px 0 20px;
+            }
+            
             .name-title h1 {
                 font-size: 2rem;
             }
@@ -295,8 +410,27 @@
                 font-size: 1.2rem;
             }
             
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 20px;
+            }
+            
+            .section-icon {
+                margin-bottom: 10px;
+            }
+            
             .section-header h2 {
                 font-size: 1.5rem;
+                padding-left: 0;
+            }
+            
+            .section-header h2::before {
+                display: none;
+            }
+            
+            .card {
+                padding: 20px;
             }
             
             .card-header h3 {
@@ -305,6 +439,55 @@
             
             .skills-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .video-container {
+                border-radius: 0;
+                margin: 15px -20px;
+                width: calc(100% + 40px);
+                box-shadow: none;
+            }
+            
+            .video-overlay {
+                display: none; /* 移动端隐藏覆盖层 */
+            }
+            
+            .video-controls {
+                display: none; /* 移动端隐藏悬浮控制 */
+            }
+            
+            .mobile-video-controls {
+                display: flex; /* 移动端显示底部控制 */
+            }
+            
+            .project-content ul {
+                padding-left: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .tech-stack {
+                gap: 8px;
+            }
+            
+            .tech-item {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .mobile-video-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mobile-video-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
         
@@ -341,11 +524,11 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>中国 上海</span>
+                    <span>中国</span>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>571123796@qq.com</span>
+                    <span>contact@example.com</span>
                 </div>
             </div>
         </div>
@@ -426,24 +609,25 @@
                     <span class="tag">医疗器械</span>
                 </div>
                 <div class="project-highlight">
-                    对标Abiomed Impella系列 | 急性心衰急诊救治| 高危PCI | 微创介入
+                    对标Abiomed Impella系列 | 急性心衰急诊救治 | 微创介入
                 </div>
                 
                 <div class="tech-stack">
                     <span class="tech-item">CFD优化</span>
                     <span class="tech-item">叶轮设计</span>
                     <span class="tech-item">生物相容性测试</span>
-                    <span class="tech-item">微型电机FOC算法</span>
+                    <span class="tech-item">微型电机</span>
                 </div>
                 
                 <div class="project-content">
-                    <p><strong>项目背景：</strong>针对急性心衰急诊救治需求，开发可经皮穿刺植入的微型心室辅助装置，对标Impella CP的3.5L/min流量指标，实现微创介入与快速血流动力学支持。</p>
-                                        <!-- 视频展示区域 -->
+                    <p><strong>项目背景：</strong>针对急性心衰急诊救治需求，开发可经皮穿刺植入的微型心室辅助装置，对标Impella CP的3.0L/min流量指标，实现微创介入与快速血流动力学支持。</p>
+                    
+                    <!-- 视频展示区域 -->
                     <div class="video-container">
                         <div class="video-wrapper">
                             <video id="pvad-video" autoplay loop muted playsinline>
                                 <!-- 实际使用时请替换为您的视频URL -->
-                                <source src="ABIOMED Education-2.5_CP.mp4" type="video/mp4">
+                                <source src="https://assets.codepen.io/3364143/sample.mp4" type="video/mp4">
                                 您的浏览器不支持视频标签。
                             </video>
                             <div class="video-overlay">
@@ -460,11 +644,22 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- 移动端视频控制 -->
+                    <div class="mobile-video-controls">
+                        <button class="mobile-video-btn" id="mobile-play-btn">
+                            <i class="fas fa-play"></i> 播放/暂停
+                        </button>
+                        <button class="mobile-video-btn" id="mobile-sound-btn">
+                            <i class="fas fa-volume-mute"></i> 声音开关
+                        </button>
+                    </div>
+                    
                     <p><strong>核心工作：</strong></p>
                     <ul>
-                        <li><strong>微型化叶轮与植入系统设计：</strong>轴向流式叶轮（直径≤5mm），CFD优化后体外流量4.0L/min，溶血指标MIH＜3；6F-8F薄壁鞘管（肝素涂层），镍钛记忆合金"猪尾"支撑结构，径向支撑力1.2-1.8N。</li>
-                        <li><strong>体外驱动与智能控制：</strong>无刷空心杯电机（功率密度＞100W/cm³），转速12000-50000rpm，空心轴导线传输；自适应算法：ECG同步辅助，VF信号识别（响应＜500ms）。</li>
-                        <li><strong>临床前验证：</strong>体外循环平台：30分钟内提升心输出量至4.0L/min，流量波动≤±10%；生物相容性：兔模型48小时PAF＜20ng/mL，血栓重量＜10mg（优于Impella标准）。</li>
+                        <li><strong>微型化叶轮与植入系统设计：</strong>轴向流式叶轮（直径≤12mm），CFD优化后体外流量3.5L/min，溶血指标HI＜0.02g/100L；6F-8F薄壁鞘管（肝素涂层），镍钛记忆合金"猪尾"支撑结构，径向支撑力1.2-1.8N。</li>
+                        <li><strong>体外驱动与智能控制：</strong>微型永磁电机（功率密度＞10W/cm³），转速15000-40000rpm，空心轴导线传输；自适应算法：ECG同步辅助，VF信号识别（响应＜500ms），蓝牙远程报警。</li>
+                        <li><strong>临床前验证：</strong>体外循环平台：30分钟内提升心输出量至4.5L/min，流量波动≤±10%；生物相容性：兔模型48小时PAF＜20ng/mL，血栓重量＜10mg（优于Impella标准）。</li>
                     </ul>
                 </div>
             </div>
@@ -476,7 +671,7 @@
                     <span class="tag">算法开发</span>
                 </div>
                 <div class="project-highlight">
-                    PVAD植入定位 | 压力-电流数据映射 | 位置异常识别
+                    VAD植入定位 | 压力-电流数据映射 | 位置异常识别
                 </div>
                 
                 <div class="tech-stack">
@@ -487,7 +682,7 @@
                 </div>
                 
                 <div class="project-content">
-                    <p><strong>项目背景：</strong>解决PVAD植入后因位置偏移导致的泵血效率下降问题，通过压力-电流数据映射实现位置异常识别，避免临床风险。</p>
+                    <p><strong>项目背景：</strong>解决VAD植入后因位置偏移导致的泵血效率下降问题，通过压力-电流数据映射实现位置异常识别，避免临床风险。</p>
                     
                     <p><strong>技术路径：</strong></p>
                     <ul>
@@ -540,7 +735,7 @@
             <div class="card animate delay-1">
                 <ul>
                     <li><strong>《活着》</strong>：对生命韧性与医学伦理的交叉思考</li>
-                    <li><strong>《医疗器械风险管理》（ISO 14971）</strong>：结合PVAD研发实践的合规体系解读</li>
+                    <li><strong>《医疗器械风险管理》（ISO 14971）</strong>：结合VAD研发实践的合规体系解读</li>
                     <li><strong>《计算流体力学基础》</strong>：从理论到工程应用的跨尺度思维培养</li>
                 </ul>
             </div>
@@ -554,7 +749,7 @@
             
             <div class="card animate delay-2">
                 <ul>
-                    <li><a href="https://github.com/destinYU006/Learn-Rust-from-Zero" target="_blank"><strong>Rust圣经</strong></a>：异步编程、内存安全实践</li>
+                    <li><strong>Rust圣经</strong>：异步编程、内存安全实践</li>
                     <li><strong>计算流体力学</strong>：OpenFOAM二次开发、超临界流体仿真案例</li>
                     <li><strong>并行编程与矩阵求解</strong>：GPU加速算法、稀疏矩阵优化</li>
                 </ul>
@@ -602,28 +797,13 @@
     </footer>
     
     <script>
-        // Simple scroll animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            document.querySelectorAll('section, .card').forEach(el => {
-                observer.observe(el);
-            });
-        });
-  
         // 页面加载时初始化视频控制
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.getElementById('pvad-video');
             const playBtn = document.getElementById('play-btn');
             const soundBtn = document.getElementById('sound-btn');
+            const mobilePlayBtn = document.getElementById('mobile-play-btn');
+            const mobileSoundBtn = document.getElementById('mobile-sound-btn');
             
             // 初始设置：视频自动播放、静音、循环
             video.autoplay = true;
@@ -631,23 +811,38 @@
             video.loop = true;
             
             // 播放/暂停按钮功能
-            playBtn.addEventListener('click', function() {
+            function togglePlay() {
                 if (video.paused) {
                     video.play();
-                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    if (mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-pause"></i> 播放/暂停';
                 } else {
                     video.pause();
-                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    if (mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-play"></i> 播放/暂停';
                 }
-            });
+            }
             
             // 声音开关功能
-            soundBtn.addEventListener('click', function() {
+            function toggleSound() {
                 video.muted = !video.muted;
-                soundBtn.innerHTML = video.muted ? 
-                    '<i class="fas fa-volume-mute"></i>' : 
-                    '<i class="fas fa-volume-up"></i>';
-            });
+                if (soundBtn) {
+                    soundBtn.innerHTML = video.muted ? 
+                        '<i class="fas fa-volume-mute"></i>' : 
+                        '<i class="fas fa-volume-up"></i>';
+                }
+                if (mobileSoundBtn) {
+                    mobileSoundBtn.innerHTML = video.muted ? 
+                        '<i class="fas fa-volume-mute"></i> 声音开关' : 
+                        '<i class="fas fa-volume-up"></i> 声音开关';
+                }
+            }
+            
+            // 绑定按钮事件
+            if (playBtn) playBtn.addEventListener('click', togglePlay);
+            if (soundBtn) soundBtn.addEventListener('click', toggleSound);
+            if (mobilePlayBtn) mobilePlayBtn.addEventListener('click', togglePlay);
+            if (mobileSoundBtn) mobileSoundBtn.addEventListener('click', toggleSound);
             
             // 视频结束自动重新播放
             video.addEventListener('ended', function() {
@@ -669,6 +864,11 @@
             document.querySelectorAll('section, .card').forEach(el => {
                 observer.observe(el);
             });
+            
+            // 移动端优化：视频播放时防止页面滚动
+            video.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
+            }, { passive: true });
         });
     </script>
 </body>
