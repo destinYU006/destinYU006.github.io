@@ -1,1 +1,33 @@
 
+@media (max-width: 768px) {
+  .video-container {
+    border-radius: 0;
+    margin: 15px -20px;
+    width: calc(100% + 40px);
+    box-shadow: none;
+  }
+  
+  .video-overlay {
+    display: none;
+  }
+  
+  .video-controls {
+    display: none;
+  }
+  
+  .mobile-video-controls {
+    display: flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-video-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .mobile-video-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
