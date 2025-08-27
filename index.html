@@ -1,875 +1,400 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>于登涛 | 计算流体力学与人工心脏研发工程师</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dengtao Yu | R&D Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #34495e;
-            --text: #2c3e50;
-            --background: #f8f9fa;
-            --card-bg: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--background);
-            padding: 0;
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .section-title {
+            @apply text-3xl font-bold text-slate-800 mb-4;
         }
-        
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--dark));
-            color: white;
-            padding: 60px 0 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        .section-subtitle {
+            @apply text-lg text-slate-500 mb-12;
         }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .header-pattern {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.2) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.2) 0%, transparent 20%);
-        }
-        
-        .name-title h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        
-        .name-title h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            opacity: 0.9;
-        }
-        
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 1rem;
-        }
-        
-        /* Section Styles */
-        section {
-            padding: 40px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        
-        .section-header h2 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            position: relative;
-            padding-left: 15px;
-        }
-        
-        .section-header h2::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 5px;
-            height: 80%;
-            background-color: var(--secondary);
-            border-radius: 2px;
-        }
-        
-        .section-icon {
-            background-color: var(--secondary);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-        }
-        
-        /* Card Styles */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--shadow);
-            padding: 25px;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .card-header {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .card-header h3 {
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-        
-        .card-header .tag {
-            background-color: var(--accent);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-        }
-        
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .skill-category {
-            margin-bottom: 30px;
-        }
-        
-        .skill-category h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .skill-item {
-            background-color: var(--secondary);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-        
-        /* Project Styles */
-        .project-highlight {
-            color: var(--accent);
-            font-weight: 600;
-            margin: 10px 0;
-        }
-        
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .tech-item {
-            background-color: var(--light);
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-size: 0.85rem;
-        }
-        
-        .project-content {
-            margin-top: 15px;
-        }
-        
-        .project-content p {
-            margin-bottom: 10px;
-        }
-        
-        .project-content ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-        
-        .project-content li {
-            margin-bottom: 8px;
-        }
-        
-        /* Video Container - 响应式优化 */
-        .video-container {
-            position: relative;
-            width: 100%;
-            margin: 20px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            max-width: 800px; /* 限制最大宽度 */
-        }
-        
-        .video-wrapper {
-            position: relative;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-        }
-        
-        .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background: #000;
-        }
-        
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 70%);
-            color: white;
-            padding: 20px;
-            pointer-events: none;
+        /* Scroll-triggered animation */
+        .reveal {
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        
-        .video-container:hover .video-overlay {
+        .reveal.visible {
             opacity: 1;
+            transform: translateY(0);
         }
-        
-        .video-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .video-description {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        
-        .video-controls {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-        
-        .video-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            pointer-events: auto;
-        }
-        
-        .video-btn:hover {
-            background: var(--accent);
-            transform: scale(1.1);
-        }
-        
-        /* 移动端优化 - 视频控制 */
-        .mobile-video-controls {
-            display: none;
-            margin-top: 15px;
-            justify-content: center;
-            gap: 15px;
-        }
-        
-        .mobile-video-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .mobile-video-btn:hover {
-            background-color: var(--dark);
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--primary);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icon:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            margin-top: 20px;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsive Design - 移动端优化 */
-        @media (max-width: 768px) {
-            header {
-                padding: 40px 0 20px;
-            }
-            
-            .name-title h1 {
-                font-size: 2rem;
-            }
-            
-            .name-title h2 {
-                font-size: 1.2rem;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 20px;
-            }
-            
-            .section-icon {
-                margin-bottom: 10px;
-            }
-            
-            .section-header h2 {
-                font-size: 1.5rem;
-                padding-left: 0;
-            }
-            
-            .section-header h2::before {
-                display: none;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .card-header h3 {
-                font-size: 1.2rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .video-container {
-                border-radius: 0;
-                margin: 15px -20px;
-                width: calc(100% + 40px);
-                box-shadow: none;
-            }
-            
-            .video-overlay {
-                display: none; /* 移动端隐藏覆盖层 */
-            }
-            
-            .video-controls {
-                display: none; /* 移动端隐藏悬浮控制 */
-            }
-            
-            .mobile-video-controls {
-                display: flex; /* 移动端显示底部控制 */
-            }
-            
-            .project-content ul {
-                padding-left: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .contact-info {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .tech-stack {
-                gap: 8px;
-            }
-            
-            .tech-item {
-                font-size: 0.8rem;
-                padding: 4px 10px;
-            }
-            
-            .mobile-video-controls {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .mobile-video-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-        
-        /* Animation Effects */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate {
-            animation: fadeIn 0.6s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
     </style>
 </head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <div class="header-pattern"></div>
-        <div class="container header-content animate">
-            <div class="name-title">
-                <h1>于登涛</h1>
-                <h2>计算流体力学与人工心脏研发工程师</h2>
+<body class="text-slate-700">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-slate-800">Dengtao Yu</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#about" class="text-slate-600 hover:text-blue-600 transition duration-300">About</a>
+                <a href="#experience" class="text-slate-600 hover:text-blue-600 transition duration-300">Experience</a>
+                <a href="#research" class="text-slate-600 hover:text-blue-600 transition duration-300">Research</a>
+                <a href="#passion" class="text-slate-600 hover:text-blue-600 transition duration-300">Passion</a>
+                <a href="#skills" class="text-slate-600 hover:text-blue-600 transition duration-300">Skills</a>
+                <a href="#contact" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition duration-300">Contact</a>
             </div>
-            
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span>计算流体力学硕士</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>中国 上海</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>571123796@qq.com</span>
-                </div>
-            </div>
+            <button id="mobile-menu-button" class="md:hidden text-slate-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 text-slate-600 hover:text-blue-600">About</a>
+            <a href="#experience" class="block py-2 text-slate-600 hover:text-blue-600">Experience</a>
+            <a href="#research" class="block py-2 text-slate-600 hover:text-blue-600">Research</a>
+            <a href="#passion" class="block py-2 text-slate-600 hover:text-blue-600">Passion</a>
+            <a href="#skills" class="block py-2 text-slate-600 hover:text-blue-600">Skills</a>
+            <a href="#contact" class="block mt-2 bg-blue-600 text-white px-4 py-2 rounded-md text-center">Contact</a>
         </div>
     </header>
-    
-    <main class="container">
+
+    <main class="container mx-auto px-6 py-16">
+
         <!-- About Section -->
-        <section id="about">
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-user"></i>
+        <section id="about" class="flex flex-col md:flex-row items-center py-20">
+            <div class="md:w-2/3">
+                <h1 class="text-5xl md:text-6xl font-bold text-slate-800 mb-4 leading-tight">Dengtao Yu</h1>
+                <h2 class="text-2xl text-blue-600 font-semibold mb-6">Senior R&D Engineer | Turbomachinery & Medical Devices</h2>
+                <p class="text-lg leading-relaxed mb-8 max-w-3xl">
+                    I am a Senior Engineer with a Master's in Fluid Mechanics and over seven years of professional experience spanning the medical device and power generation industries. I specialize in leading the R&D of complex turbomachinery systems, from micro-scale VAD blood pumps to F-class heavy-duty gas turbines, and I am an expert in both component-level CFD analysis and system-level thermodynamic modeling.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-transform transform hover:scale-105">Get in Touch</a>
+                    <a href="#" class="bg-white text-slate-700 px-6 py-3 rounded-lg font-semibold border border-slate-300 hover:bg-slate-100 transition-transform transform hover:scale-105">Download CV</a>
                 </div>
-                <h2>个人简介</h2>
             </div>
-            
-            <div class="card animate delay-1">
-                <p>计算流体力学硕士，专注于<strong>CFD仿真、人工心脏器械研发、Rust/Python开发</strong>。具备跨领域工程实践经验，在叶轮机械设计、医疗器械研发体系及智能化平台开发中承担核心角色。</p>
-            </div>
-        </section>
-        
-        <!-- Skills Section -->
-        <section id="skills">
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h2>核心能力</h2>
-            </div>
-            
-            <div class="skills-grid">
-                <div class="skill-category animate delay-1">
-                    <h3><i class="fas fa-wind"></i> 流体力学与叶轮机械</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">CFD全流程仿真</span>
-                        <span class="skill-item">ANSYS CFX/FLUENT</span>
-                        <span class="skill-item">OpenFOAM</span>
-                        <span class="skill-item">叶轮设计</span>
-                        <span class="skill-item">多物理场耦合</span>
-                        <span class="skill-item">PIV/LDA流场分析</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category animate delay-2">
-                    <h3><i class="fas fa-laptop-code"></i> 编程语言与工具</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">Rust高性能编程</span>
-                        <span class="skill-item">Python数据分析</span>
-                        <span class="skill-item">Web开发 (Flask)</span>
-                        <span class="skill-item">SolidWorks/CATIA</span>
-                    </div>
-                </div>
-                
-                <div class="skill-category animate delay-3">
-                    <h3><i class="fas fa-heartbeat"></i> 医疗器械研发</h3>
-                    <div class="skill-items">
-                        <span class="skill-item">ISO13485体系</span>
-                        <span class="skill-item">心室辅助装置</span>
-                        <span class="skill-item">三类有源医疗器械</span>
-                        <span class="skill-item">生物相容性测试</span>
-                    </div>
+            <div class="md:w-1/3 mt-12 md:mt-0 flex justify-center">
+                <div class="w-64 h-64 md:w-80 md:h-80 bg-slate-200 rounded-full relative shadow-lg">
+                    <svg viewBox="0 0 100 100" class="absolute inset-0 w-full h-full">
+                        <circle cx="50" cy="50" r="48" fill="#e2e8f0"/>
+                        <path d="M50,98 C23.49,98 2,76.51 2,50 C2,23.49 23.49,2 50,2 C76.51,2 98,23.49 98,50 C98,76.51 76.51,98 50,98 Z M50,6 C25.7,6 6,25.7 6,50 C6,74.3 25.7,94 50,94 C74.3,94 94,74.3 94,50 C94,25.7 74.3,6 50,6 Z" fill="#cbd5e1"/>
+                        <path d="M50,62 C63.81,62 75,50.81 75,37 C75,23.19 63.81,12 50,12 C36.19,12 25,23.19 25,37 C25,50.81 36.19,62 50,62 Z M50,16 C61.6,16 71,25.4 71,37 C71,48.6 61.6,58 50,58 C38.4,58 29,48.6 29,37 C29,25.4 38.4,16 50,16 Z" fill="#94a3b8"/>
+                        <path d="M85.1,89.1 C79.2,78.2 65.5,71 50,71 C34.5,71 20.8,78.2 14.9,89.1 C19.1,92.5 24.5,95 30.4,96.3 C36.9,91.8 43.2,89 50,89 C56.8,89 63.1,91.8 69.6,96.3 C75.5,95 80.9,92.5 85.1,89.1 Z" fill="#94a3b8"/>
+                    </svg>
                 </div>
             </div>
         </section>
-        
-        <!-- Projects Section -->
-        <section id="projects">
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <h2>项目经验</h2>
+
+        <!-- Professional Experience Section -->
+        <section id="experience" class="py-20 bg-white overflow-hidden">
+            <div class="text-center">
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-subtitle">From cutting-edge medical devices to critical energy infrastructure, I thrive on cross-disciplinary engineering challenges.</p>
             </div>
-            
-            <!-- Project 1 -->
-            <div class="card animate delay-1">
-                <div class="card-header">
-                    <h3>经皮心室辅助装置（pVAD）研发</h3>
-                    <span class="tag">医疗器械</span>
-                </div>
-                <div class="project-highlight">
-                    对标Abiomed Impella系列 | 急性心衰急诊救治 | 微创介入
-                </div>
-                
-                <div class="tech-stack">
-                    <span class="tech-item">CFD优化</span>
-                    <span class="tech-item">叶轮设计</span>
-                    <span class="tech-item">生物相容性测试</span>
-                    <span class="tech-item">微型电机</span>
-                </div>
-                
-                <div class="project-content">
-                    <p><strong>项目背景：</strong>针对急性心衰急诊救治需求，开发可经皮穿刺植入的微型心室辅助装置，对标Impella CP的3.0L/min流量指标，实现微创介入与快速血流动力学支持。</p>
-                    
-                    <!-- 视频展示区域 -->
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <video id="pvad-video" autoplay loop muted playsinline>
-                                <!-- 实际使用时请替换为您的视频URL -->
-                                <source src="https://assets.codepen.io/3364143/sample.mp4" type="video/mp4">
-                                您的浏览器不支持视频标签。
-                            </video>
-                            <div class="video-overlay">
-                                <div class="video-title">pVAD装置工作原理演示</div>
-                                <div class="video-description">经皮心室辅助装置在模拟循环系统中的工作状态</div>
-                            </div>
-                            <div class="video-controls">
-                                <div class="video-btn" id="play-btn">
-                                    <i class="fas fa-play"></i>
-                                </div>
-                                <div class="video-btn" id="sound-btn">
-                                    <i class="fas fa-volume-mute"></i>
-                                </div>
-                            </div>
+            <div class="container mx-auto px-4">
+                <div class="relative wrap overflow-hidden p-10 h-full">
+                    <div class="border-2-2 absolute border-opacity-20 border-slate-700 h-full border" style="left: 50%"></div>
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full"><h1 class="mx-auto font-semibold text-lg text-white">1</h1></div>
+                        <div class="order-1 bg-blue-50 rounded-lg shadow-xl w-5/12 px-6 py-4 reveal">
+                            <p class="text-sm font-semibold text-blue-600">Oct 2021 – Aug 2025</p>
+                            <h3 class="mb-3 font-bold text-slate-800 text-xl">Senior Fluid Engineer</h3>
+                            <p class="text-sm leading-snug tracking-wide text-slate-600">Led LVAD blood pump R&D, developed a predictive hemolysis model, and built three experimental rigs (hydraulic, pulsatile, hemolysis) for validation according to ISO standards.</p>
                         </div>
                     </div>
-                    
-                    <!-- 移动端视频控制 -->
-                    <div class="mobile-video-controls">
-                        <button class="mobile-video-btn" id="mobile-play-btn">
-                            <i class="fas fa-play"></i> 播放/暂停
-                        </button>
-                        <button class="mobile-video-btn" id="mobile-sound-btn">
-                            <i class="fas fa-volume-mute"></i> 声音开关
-                        </button>
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-8 h-8 rounded-full"><h1 class="mx-auto text-white font-semibold text-lg">2</h1></div>
+                        <div class="order-1 bg-slate-50 rounded-lg shadow-xl w-5/12 px-6 py-4 reveal">
+                            <p class="text-sm font-semibold text-blue-600">Jul 2018 – Sep 2021</p>
+                            <h3 class="mb-3 font-bold text-slate-800 text-xl">Thermal Performance Engineer</h3>
+                            <p class="text-sm leading-snug tracking-wide text-slate-600">Developed system models and a real-time digital twin for F-Class CCPP. Validated optimization strategies via on-site tests, improving power plant efficiency and emissions.</p>
+                        </div>
                     </div>
-                    
-                    <p><strong>核心工作：</strong></p>
-                    <ul>
-                        <li><strong>微型化叶轮与植入系统设计：</strong>轴向流式叶轮（直径≤6mm），CFD优化后体外流量4.0L/min，溶血指标M.I.H. < 2.0；6F-8F薄壁鞘管（肝素涂层），镍钛记忆合金"猪尾"支撑结构，径向支撑力1.2-1.8N。</li>
-                        <li><strong>体外驱动与智能控制：</strong>微型永磁电机（功率密度＞100W/cm³），转速12000-50000rpm，空心轴导线传输；自适应算法。</li>
-                        <li><strong>临床前验证：</strong>体外循环平台：30分钟内提升心输出量至4.5L/min，流量波动≤±10%；生物相容性：兔模型48小时PAF＜20ng/mL，血栓重量＜10mg（优于Impella标准）。</li>
-                    </ul>
                 </div>
             </div>
-            
-            <!-- Project 2 -->
-            <div class="card animate delay-2">
-                <div class="card-header">
-                    <h3>左心室辅助装置智能定位算法开发</h3>
-                    <span class="tag">算法开发</span>
-                </div>
-                <div class="project-highlight">
-                    VAD植入定位 | 压力-电流数据映射 | 位置异常识别
-                </div>
-                
-                <div class="tech-stack">
-                    <span class="tech-item">FOC控制算法</span>
-                    <span class="tech-item">数理建模</span>
-                    <span class="tech-item">动物实验</span>
-                    <span class="tech-item">软件实现</span>
-                </div>
-                
-                <div class="project-content">
-                    <p><strong>项目背景：</strong>解决VAD植入后因位置偏移导致的泵血效率下降问题，通过压力-电流数据映射实现位置异常识别，避免临床风险。</p>
-                    
-                    <p><strong>技术路径：</strong></p>
-                    <ul>
-                        <li><strong>FOC控制算法开发：</strong>速度环/电流环双闭环控制，验证负荷跟随性，建立P-Q-I MAP数据库。</li>
-                        <li><strong>数理模型构建：</strong>基于主动脉压力、左心室压力映射关系，训练位置异常特征集（含动物实验/临床数据）。</li>
-                        <li><strong>软件实现：</strong>开发定位算法软件，实时计算左心室压力、心率等参数，定位准确率＞95%。</li>
-                    </ul>
-                </div>
+        </section>
+
+        <!-- Research Highlights Section -->
+        <section id="research" class="py-20">
+            <div class="text-center">
+                <h2 class="section-title">Interactive Research Highlights</h2>
+                <p class="section-subtitle">Explore my research findings through interactive data visualizations.</p>
             </div>
-            
-            <!-- Project 3 -->
-            <div class="card animate delay-3">
-                <div class="card-header">
-                    <h3>联合循环热力监测系统开发</h3>
-                    <span class="tag">能源系统</span>
+            <div class="space-y-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8 reveal">
+                    <div class="md:w-1/2">
+                        <span class="font-semibold text-blue-600">Journal of Fluids and Structures, 2017</span>
+                        <h3 class="text-2xl font-bold text-slate-800 my-3">Propulsive Efficiency of an Oscillating Airfoil</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            This research explored the aerodynamics of bio-inspired flight. Using a **self-developed CFD code (UCFD)**, I conducted a large-scale parametric study on an airfoil with combined pitching and heaving motions to analyze how frequency, pitch, and heave amplitudes affect propulsive efficiency.
+                        </p>
+                         <div class="mt-4">
+                            <label for="pitchSlider" class="block font-semibold mb-2">Drag the slider to see how pitch amplitude affects the high-efficiency region:</label>
+                            <input id="pitchSlider" type="range" min="3" max="19" value="8" class="w-full">
+                            <div class="text-center mt-1">Current Pitch Amplitude: <span id="pitchValue" class="font-bold">8</span>°</div>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 p-4 bg-slate-50 rounded-lg">
+                        <h4 class="font-semibold text-center mb-2">Interactive Efficiency Map</h4>
+                        <canvas id="airfoilChart"></canvas>
+                    </div>
                 </div>
-                <div class="project-highlight">
-                    电厂节能优化 | 热力模型开发 | 实时数据交互
-                </div>
-                
-                <div class="tech-stack">
-                    <span class="tech-item">IPSEpro平台</span>
-                    <span class="tech-item">热力建模</span>
-                    <span class="tech-item">PI数据库</span>
-                    <span class="tech-item">DCS系统</span>
-                </div>
-                
-                <div class="project-content">
-                    <p><strong>项目背景：</strong>基于机组热力试验数据，构建联合循环性能监测系统，为电厂节能优化提供数据支持。</p>
-                    
-                    <p><strong>系统架构：</strong></p>
-                    <ul>
-                        <li><strong>热力模型开发：</strong>燃机循环、进排气系统等部件建模（IPSEpro平台），与电厂DCS系统等效。</li>
-                        <li><strong>数据接口开发：</strong>开发PI数据库接口组件，实现模型与现场数据（温度/压力/流量）的实时交互。</li>
-                        <li><strong>数据校验与分析：</strong>基于模型校验仪表状态，生成运行经济性分析报告，辅助远程诊断。</li>
-                    </ul>
+                <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col md:flex-row-reverse items-center gap-8 reveal">
+                    <div class="md:w-1/2">
+                        <span class="font-semibold text-blue-600">Journal of Engineering Thermophysics, 2019</span>
+                        <h3 class="text-2xl font-bold text-slate-800 my-3">Numerical Simulation of an SCO₂ Centrifugal Compressor</h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                           This project focused on a key component for next-generation power cycles: a Supercritical CO₂ (SCO₂) centrifugal compressor. I led the aerodynamic design and performed CFD analysis to validate its performance at design and off-design conditions.
+                        </p>
+                        <ul class="list-disc list-inside space-y-1">
+                           <li><strong>Key Result:</strong> Achieved a design point with <strong>92% isentropic efficiency</strong> and a 1.21 pressure ratio.</li>
+                           <li><strong>Key Finding:</strong> The compressor's off-design performance curves resemble those of traditional axial compressors, confirming its operational stability.</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/2 p-4 bg-slate-50 rounded-lg">
+                        <h4 class="font-semibold text-center mb-2">Interactive Performance Curve (Hover for data)</h4>
+                        <canvas id="compressorChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
         
-        <!-- Additional Sections -->
-        <section id="additional">
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-book"></i>
+        <!-- Passion & Interests Section -->
+        <section id="passion" class="py-20 bg-white">
+            <div class="text-center">
+                <h2 class="section-title">Passion & Interests</h2>
+                <p class="section-subtitle">Beyond the numbers and simulations, this is what drives me.</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-2/3 bg-slate-50 p-8 rounded-lg reveal">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">My Fascination with Turbomachinery</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        To me, turbomachinery represents the pinnacle of engineering—a perfect blend of fluid dynamics, thermodynamics, and precision manufacturing. It's the heart of our modern world, from the jet engines that connect continents to the power plants that light our cities. My career has allowed me to explore this field at two fascinating extremes: the immense scale of F-class gas turbines, where a single percentage point of efficiency can save millions, and the micro-scale of a ventricular assist device, where fluid dynamics directly translates to saving a human life. This duality—powering civilizations and sustaining individuals—is what makes me so passionate about my work. Every simulation I run and every component I design is part of this incredible story.
+                    </p>
                 </div>
-                <h2>读书思考</h2>
-            </div>
-            
-            <div class="card animate delay-1">
-                <ul>
-                    <li><strong>《活着》</strong>：对生命韧性与医学伦理的交叉思考</li>
-                    <li><strong>《医疗器械风险管理》（ISO 14971）</strong>：结合VAD研发实践的合规体系解读</li>
-                    <li><strong>《计算流体力学基础》</strong>：从理论到工程应用的跨尺度思维培养</li>
-                </ul>
-            </div>
-            
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-graduation-cap"></i>
+                <div class="md:w-1/3 bg-slate-50 p-8 rounded-lg reveal">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">Outside the Lab</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        <li><strong>Hiking:</strong> Exploring trails to clear my mind and find new perspectives.</li>
+                        <li><strong>Photography:</strong> Capturing the intricate details of both nature and machinery.</li>
+                        <li><strong>Tech Gadgets:</strong> I'm always curious about the latest innovations in hardware and software.</li>
+                    </ul>
                 </div>
-                <h2>技术学习</h2>
-            </div>
-            
-            <div class="card animate delay-2">
-                <ul>
-                    <li><strong>Rust圣经</strong>：异步编程、内存安全实践</li>
-                    <li><strong>计算流体力学</strong>：OpenFOAM二次开发、超临界流体仿真案例</li>
-                    <li><strong>并行编程与矩阵求解</strong>：GPU加速算法、稀疏矩阵优化</li>
-                </ul>
-            </div>
-            
-            <div class="section-header animate">
-                <div class="section-icon">
-                    <i class="fas fa-road"></i>
-                </div>
-                <h2>未来学习</h2>
-            </div>
-            
-            <div class="card animate delay-3">
-                <ul>
-                    <li>医疗设备AI算法：基于深度学习的血流动力学预测模型</li>
-                    <li>微型机电系统（MEMS）：VAD叶轮微型化与生物相容性涂层技术</li>
-                    <li>合规与临床：FDA IDE申报流程、人工心脏临床试验设计</li>
-                </ul>
             </div>
         </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-content">
-            <h3>于登涛 | 计算流体力学与人工心脏研发工程师</h3>
-            
-            <div class="social-links">
-                <a href="#" class="social-icon">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#" class="social-icon">
-                    <i class="fas fa-envelope"></i>
-                </a>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20">
+            <div class="text-center">
+                <h2 class="section-title">Technical Skills</h2>
+                <p class="section-subtitle">A versatile toolkit for solving complex engineering problems.</p>
             </div>
-            
-            <p class="copyright">© 2023 于登涛 - 个人简历网站 | 使用GitHub Pages部署</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg reveal">
+                    <h4 class="font-bold text-lg text-blue-600 mb-3">Core Domains</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>Turbomachinery Aerodynamics</li>
+                        <li>Power Plant Thermodynamics (CCPP)</li>
+                        <li>Biofluid Dynamics & Hemolysis</li>
+                        <li>Medical Device Design (VAD)</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg reveal">
+                    <h4 class="font-bold text-lg text-blue-600 mb-3">Simulation & Modeling</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>CFD (ANSYS CFX, Self-Developed Codes)</li>
+                        <li>System-Level Modeling (IPSEpro)</li>
+                        <li>Lagrangian Particle Tracking</li>
+                        <li>Digital Twin Development</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg reveal">
+                    <h4 class="font-bold text-lg text-blue-600 mb-3">Data & Programming</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>Python (NumPy, Pandas, Matplotlib)</li>
+                        <li>MATLAB & Simulink</li>
+                        <li>C/C++</li>
+                        <li>InfluxDB (Time-Series Database)</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg reveal">
+                    <h4 class="font-bold text-lg text-blue-600 mb-3">Experimental & Validation</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>Test Rig Design & Construction</li>
+                        <li>On-site Power Plant Testing</li>
+                        <li>Data Acquisition (DAQ) Systems</li>
+                        <li>ISO Standards (18242, 14708)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full Publications List -->
+        <section id="full-publications" class="py-20 bg-white">
+            <div class="text-center">
+                <h2 class="section-title">Full Publications List</h2>
+            </div>
+            <div class="max-w-4xl mx-auto bg-slate-50 p-8 rounded-lg">
+                <ol class="list-decimal list-inside space-y-4 text-slate-700">
+                    <li>YU, Dengtao, et al. Numerical study of the effect of motion parameters on propulsive efficiency for an oscillating airfoil. <em>Journal of Fluids and Structures</em>, 2017, 68: 245-263.</li>
+                    <li>HSIEH, Yue-Lin, et al. Hydroacoustic sonification and flow pattern investigation of venous pulsatile tinnitus using MEMS hydrophone sensing and dye flow visualization techniques: pilot 3D printing, computational fluid dynamics, and psychoacoustic study. <em>Sens Mater</em>, 2021, 33: 3439-3457.</li>
+                    <li>DU, Xuefei, et al. Supercritical carbon dioxide centripetal compressor—aerodynamic design and analysis of off design conditions. <em>Journal of Nuclear Engineering and Radiation Science</em>, 2019, 5.4.</li>
+                    <li>HSIEH, Yue-Lin, et al. Validation of computational fluid dynamics simulation methods for venous pulsatile tinnitus. <em>Modern Physics Letters B</em>, 2021, 35.36: 2150522.</li>
+                    <li>Yu Dengtao, Huang Diangui. Numerical Simulation and Analysis of SCO₂ Centrifugal Compressor. <em>Journal of Engineering Thermophysics</em>, 2019, Vol. 40, No. 5: 1025-1030.</li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-800 text-slate-300 py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-white mb-4">Contact Me</h2>
+            <p class="mb-8 max-w-2xl mx-auto">I am always open to discussing new collaborations, technical challenges, or interesting ideas. Please feel free to reach out.</p>
+            <a href="mailto:dengtaoyu15221450952@gmail.com" class="inline-block bg-blue-600 text-white text-lg px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-transform transform hover:scale-105">
+                dengtaoyu15221450952@gmail.com
+            </a>
+            <div class="flex justify-center space-x-6 mt-10">
+                <!-- Add your actual links here -->
+            </div>
+            <p class="mt-10 text-sm text-slate-500">&copy; 2025 Dengtao Yu. All Rights Reserved.</p>
         </div>
     </footer>
-    
+
     <script>
-        // 页面加载时初始化视频控制
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('pvad-video');
-            const playBtn = document.getElementById('play-btn');
-            const soundBtn = document.getElementById('sound-btn');
-            const mobilePlayBtn = document.getElementById('mobile-play-btn');
-            const mobileSoundBtn = document.getElementById('mobile-sound-btn');
-            
-            // 初始设置：视频自动播放、静音、循环
-            video.autoplay = true;
-            video.muted = true;
-            video.loop = true;
-            
-            // 播放/暂停按钮功能
-            function togglePlay() {
-                if (video.paused) {
-                    video.play();
-                    if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                    if (mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-pause"></i> 播放/暂停';
-                } else {
-                    video.pause();
-                    if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                    if (mobilePlayBtn) mobilePlayBtn.innerHTML = '<i class="fas fa-play"></i> 播放/暂停';
-                }
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Header shadow on scroll
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
             }
-            
-            // 声音开关功能
-            function toggleSound() {
-                video.muted = !video.muted;
-                if (soundBtn) {
-                    soundBtn.innerHTML = video.muted ? 
-                        '<i class="fas fa-volume-mute"></i>' : 
-                        '<i class="fas fa-volume-up"></i>';
+        });
+        
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add('visible');
                 }
-                if (mobileSoundBtn) {
-                    mobileSoundBtn.innerHTML = video.muted ? 
-                        '<i class="fas fa-volume-mute"></i> 声音开关' : 
-                        '<i class="fas fa-volume-up"></i> 声音开关';
-                }
-            }
-            
-            // 绑定按钮事件
-            if (playBtn) playBtn.addEventListener('click', togglePlay);
-            if (soundBtn) soundBtn.addEventListener('click', toggleSound);
-            if (mobilePlayBtn) mobilePlayBtn.addEventListener('click', togglePlay);
-            if (mobileSoundBtn) mobileSoundBtn.addEventListener('click', toggleSound);
-            
-            // 视频结束自动重新播放
-            video.addEventListener('ended', function() {
-                video.currentTime = 0;
-                video.play();
             });
-            
-            // 滚动动画效果
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate');
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Chart.js Interactive Charts
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Compressor Chart
+            const ctxCompressor = document.getElementById('compressorChart').getContext('2d');
+            new Chart(ctxCompressor, {
+                type: 'line',
+                data: {
+                    labels: [150, 160, 170, 180, 190, 195.9, 200, 210, 220],
+                    datasets: [{
+                        label: 'Pressure Ratio',
+                        data: [1.28, 1.27, 1.26, 1.24, 1.22, 1.21, 1.20, 1.18, 1.15],
+                        borderColor: '#3b82f6',
+                        tension: 0.4,
+                        fill: false
+                    }, {
+                        label: 'Design Point',
+                        data: [{ x: 195.9, y: 1.21 }],
+                        pointBackgroundColor: '#ef4444',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        type: 'scatter'
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { title: { display: true, text: 'Mass Flow Rate (kg/s)' } },
+                        y: { title: { display: true, text: 'Pressure Ratio' }, min: 1.1 }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Design Point') return `Design Point: (${context.parsed.x} kg/s, ${context.parsed.y})`;
+                                    return `Pressure Ratio: ${context.parsed.y}`;
+                                }
+                            }
+                        }
                     }
-                });
-            }, {
-                threshold: 0.1
+                }
             });
-            
-            document.querySelectorAll('section, .card').forEach(el => {
-                observer.observe(el);
+
+            // 2. Airfoil Chart
+            const ctxAirfoil = document.getElementById('airfoilChart').getContext('2d');
+            const slider = document.getElementById('pitchSlider');
+            const pitchValue = document.getElementById('pitchValue');
+            let airfoilChart;
+
+            const generateAirfoilData = (pitch) => {
+                const data = [];
+                for (let x = 0.1; x <= 0.9; x += 0.1) { // Heaving
+                    for (let y = 1; y <= 30; y += 2) { // Frequency
+                        const peakX = 0.2 + pitch / 25;
+                        const peakY = 25 - pitch;
+                        const efficiency = Math.exp(-((x - peakX) ** 2) / 0.1 - ((y - peakY) ** 2) / 100);
+                        data.push({ x: x, y: y, v: efficiency });
+                    }
+                }
+                return data;
+            };
+
+            const updateAirfoilChart = () => {
+                const pitch = parseFloat(slider.value);
+                pitchValue.textContent = pitch.toFixed(0);
+                const newData = generateAirfoilData(pitch);
+                
+                airfoilChart.data.datasets[0].data = newData;
+                airfoilChart.data.datasets[0].backgroundColor = newData.map(p => `rgba(239, 68, 68, ${p.v})`);
+                airfoilChart.update();
+            };
+
+            airfoilChart = new Chart(ctxAirfoil, {
+                type: 'bubble',
+                data: { datasets: [{ label: 'Efficiency Point', data: [], radius: 5 }] },
+                options: {
+                    scales: {
+                        x: { title: { display: true, text: 'Dimensionless Heaving Amplitude' }, min: 0, max: 1 },
+                        y: { title: { display: true, text: 'Frequency (Hz)' }, min: 0, max: 32 }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const d = context.raw;
+                                    return `Efficiency: ${d.v.toFixed(2)} (Freq: ${d.y}Hz, Heave: ${d.x.toFixed(1)})`;
+                                }
+                            }
+                        }
+                    }
+                }
             });
-            
-            // 移动端优化：视频播放时防止页面滚动
-            video.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-            }, { passive: true });
+
+            slider.addEventListener('input', updateAirfoilChart);
+            updateAirfoilChart(); // Initial chart draw
         });
     </script>
+
 </body>
 </html>
